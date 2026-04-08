@@ -115,14 +115,81 @@ Así, un punto $P$ se representa como:
 
 $$P = \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
 
-> **Nota:** Aquí se explica cómo combinar múltiples transformaciones en una sola matriz mediante la multiplicación.
+
+📐 Matrices de Transformación Básicas ($3 \times 3$)
+
+Al usar coordenadas homogéneas, las matrices de transformación se representan de la siguiente manera:
+
+**Traslación**
+
+$$
+T(t_x, t_y) = \begin{bmatrix} 
+1 & 0 & t_x \\ 
+0 & 1 & t_y \\ 
+0 & 0 & 1 
+\end{bmatrix}
+$$
+
+**Escalamiento**
+
+$$
+S(s_x, s_y) = \begin{bmatrix} 
+s_x & 0 & 0 \\ 
+0 & s_y & 0 \\ 
+0 & 0 & 1 
+\end{bmatrix}
+$$
+
+**Rotación**
+
+$$
+R(\theta) = \begin{bmatrix} 
+\cos\theta & -\sin\theta & 0 \\ 
+\sin\theta & \cos\theta & 0 \\ 
+0 & 0 & 1 
+\end{bmatrix}
+$$
+
+🔗 **Composición de Transformaciones (Concatenación)**
+
+La mayor ventaja de la representación matricial es que podemos multiplicar varias matrices para obtener una Matriz de Transformación Combinada ($M_{total}$).
+
+Si queremos aplicar una rotación ($R$), luego un escalamiento ($S$) y finalmente una traslación ($T$), la operación sería:
+
+$$P' = (T \cdot (S \cdot (R \cdot P)))$$
+
+O lo que es lo mismo:
+
+$$P' = M_{total} \cdot P$$
+
+---
+
+
+
+---
 
 ## 2.3 Trazo de líneas curvas
+
+
+
+
+
 ### 2.3.1 Bézier
+
+
+
+
 ### 2.3.2 B-spline
+
+
+---
 
 ## 2.4 Fractales
 *(Ejemplos: Conjunto de Mandelbrot, Copo de Koch)*
+
+
+
+---
 
 ## 2.5 Uso y creación de fuentes de texto
 *(Sistemas de fuentes TrueType, OpenType y Bitmap)*
