@@ -170,26 +170,148 @@ $$P' = M_{total} \cdot P$$
 
 ## 2.3 Trazo de líneas curvas
 
+En computación gráfica, las curvas no se dibujan a mano alzada, sino que se definen mediante ecuaciones paramétricas. El objetivo es generar una línea suave que pase cerca o a través de un conjunto de puntos de control.
+
+Existen dos enfoques principales:
+
+1. **Interpolación:** La curva debe pasar exactamente por todos los puntos.
+
+2. **Aproximación:** La curva es "atraída" por los puntos de control, pero no necesariamente pasa por ellos (como en Bézier y B-splines).
 
 
 
 
 ### 2.3.1 Bézier
 
+Desarrolladas originalmente para el diseño de carrocerías de autos (Renault), estas curvas se definen por puntos de control que actúan como "imanes".
+
+* **Puntos de Anclaje:** El primero y el último punto, donde la curva inicia y termina.
+
+* **Puntos de Control:** Determinan la curvatura y la dirección de la línea.
+
+* **Grados:** Una curva de 3 puntos es cuadrática; una de 4 puntos es cúbica (la más común en diseño gráfico y tipografías).
+
+**Fórmula General (Polinomios de Bernstein):**
+
+$$B(t) = \sum_{i=0}^{n} \binom{n}{i} (1-t)^{n-i} t^i P_i, \quad t \in [0,1]$$
 
 
 
 ### 2.3.2 B-spline
 
+A diferencia de las curvas de Bézier, donde mover un solo punto de control afecta a toda la curva, las B-splines ofrecen control local.
+
+* **Segmentación:** La curva se construye por tramos. Mover un punto solo afecta a los segmentos cercanos.
+
+* **Continuidad:** Permiten unir múltiples curvas de forma perfecta, sin ángulos marcados en las uniones.
+
+* **Uso:** Modelado 3D profesional (NURBS) y animaciones complejas donde se requiere precisión quirúrgica.
 
 ---
 
 ## 2.4 Fractales
-*(Ejemplos: Conjunto de Mandelbrot, Copo de Koch)*
 
+Un fractal es un objeto geométrico cuya estructura básica, fragmentada o aparentemente irregular, se repite a diferentes escalas. El término fue acuñado por Benoît Mandelbrot en 1975.
 
+**Características Principales**
+
+* **Autosimilitud:** Partes del objeto son copias exactas o estadísticas del todo.
+
+* **Dimensión no entera:** A diferencia de las figuras euclidianas (línea = 1D, plano = 2D), los fractales tienen dimensiones fraccionarias.
+
+* **Algoritmos Recursivos:** Se generan mediante la repetición infinita de un proceso geométrico o matemático simple.
+
+### 📐 Tipos de Fractales
+
+1. **Fractales Geométricos (Lineales)**
+
+Se crean reemplazando partes de una figura simple por una forma más compleja de manera recursiva.
+
+* **Copo de Nieve de Koch:** Comienza con un triángulo y añade puntas en cada lado infinitamente.
+
+* **Triángulo de Sierpinski:** Un triángulo que se subdivide en triángulos más pequeños eliminando el central.
+
+2. **Fractales Algorítmicos (No lineales)**
+
+Basados en funciones complejas que se iteran en el plano complejo.
+
+* **Conjunto de Mandelbrot:** Es el fractal más famoso. Se define por la iteración de la función $z_{n+1} = z_n^2 + c$.
+
+* **Conjunto de Julia:** Estrechamente relacionado con el de Mandelbrot, genera formas orgánicas y espirales infinitas.
+
+### 🛠️ Aplicaciones en la Graficación
+
+Los fractales no son solo arte; tienen usos técnicos críticos:
+
+* **Generación de Terrenos (Procedural):** Creación de montañas, nubes y paisajes realistas en videojuegos y cine.
+
+* **Modelado de Plantas:** Uso de Sistemas-L para simular el crecimiento de árboles y helechos.
+
+* **Compresión de Imágenes:** Aprovechamiento de patrones repetitivos para reducir el tamaño de archivos.
 
 ---
 
 ## 2.5 Uso y creación de fuentes de texto
-*(Sistemas de fuentes TrueType, OpenType y Bitmap)*
+
+En la graficación por computadora, las fuentes de texto (tipografías) se tratan de dos formas principales, dependiendo de si se prioriza la velocidad o la calidad de escalado.
+
+1. **Fuentes de Mapas de Bits (Bitmapped Fonts)**
+
+Cada carácter se almacena como una rejilla de píxeles (un patrón de bits).
+
+* **Ventajas:** Son muy rápidas de dibujar en pantalla.
+
+* **Desventajas:** No se pueden escalar sin perder calidad (aparece el efecto de "pixelado"). Si cambias el tamaño, debes tener un mapa de bits diferente para cada tamaño.
+
+* **Uso común:** Terminales de consola, sistemas embebidos y videojuegos de estética retro.
+
+2. Fuentes Vectoriales o de Contorno (Outline Fonts)
+
+Los caracteres se definen mediante ecuaciones matemáticas y Curvas de Bézier (vistas en el tema 2.3).
+
+* **Ventajas:** Son escalables infinitamente sin perder nitidez. Se pueden rotar y transformar mediante matrices sin distorsión.
+
+* **Desventajas:** Requieren más procesamiento, ya que la computadora debe "rellenar" la curva con píxeles (rasterización) cada vez que se dibujan.
+
+* **Estándares:** TrueType (.ttf) y OpenType (.otf).
+
+### 🛠️ El proceso de Renderizado de Texto
+
+Para mostrar una fuente vectorial en pantalla, se siguen estos pasos:
+
+1. **Selección del Glifo:** Se busca el diseño del carácter en el archivo de la fuente.
+
+2. **Transformación:** Se aplican matrices de escalado o rotación si es necesario.
+
+3. **Rasterización:** Se convierten las curvas matemáticas en píxeles.
+
+4. **Anti-aliasing:** Se suavizan los bordes para que la letra no se vea "dentada" en resoluciones bajas.
+
+### 🎨 Creación de Fuentes
+
+La creación de fuentes modernas implica el diseño de cada glifo sobre un plano cartesiano, definiendo puntos de anclaje y manejadores de curvas. Herramientas como FontForge o Glyphs permiten exportar estos diseños a formatos vectoriales que las tarjetas gráficas pueden procesar.
+
+### 📊 Comparativa Rápida de Tipografías
+
+| Tipo de Fuente | Representación | Escalabilidad | Consumo de CPU |
+| :--- | :--- | :--- | :--- |
+| **Bitmap** | Matriz de píxeles | Pobre (se pixela) | Muy bajo |
+| **Vectorial** | Curvas de Bézier | Perfecta (infinita) | Moderado |
+
+---
+
+## Bibliografías APA
+
+- http://fernandez-torres-jose.blogspot.com/2012/09/21-transformaciones-bidimensionales.html
+
+- Valdes, A. S. (2013, 24 septiembre). 2.4 Representación matricial. http://graficacionito.blogspot.com/2013/09/24-representacion-matricial.html
+
+- Martin, J. A. C. (s. f.). Trazo de líneas curvas. http://graficacion-jakiealexander-chanmartin.blogspot.com/2019/10/trazo-de-lineas-curvas.html
+
+- Fractales. (s. f.). http://fernandez-torres-jose.blogspot.com/2012/08/fractales.html
+
+- Guest. (s. f.). Uso y creación de fuentes de texto - PDFCOFFEE.COM. pdfcoffee.com. https://pdfcoffee.com/uso-y-creacion-de-fuentes-de-texto-8-pdf-free.html
+
+- Hearn, D., & Baker, M. P. (2006). Gráficas por computadora con OpenGL. Pearson Educación.
+
+- Rogers, D. F., & Adams, J. A. (1990). Mathematical Elements for Computer Graphics. McGraw-Hill.
