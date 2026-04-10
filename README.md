@@ -164,7 +164,65 @@ $$P' = M_{total} \cdot P$$
 
 ---
 
+#### Ejemplo Animación utilizando las teclas "Flechas"
 
+**Código**
+
+```
+
+import bpy
+
+class ModalMoveOperator(bpy.types.Operator):
+    bl_idname = "object.modal_move_operator"
+    bl_label = "Modal Move Operator"
+
+    def modal(self, context, event):
+        obj = bpy.data.objects.get("MiDibujo")
+        
+        if not obj:
+            return {'CANCELLED'}
+
+        if event.value == 'PRESS':
+            # IZQUIERDA / DERECHA (Eje X)
+            if event.type == 'LEFT_ARROW':
+                obj.location.x -= 0.5
+            elif event.type == 'RIGHT_ARROW':
+                obj.location.x += 0.5
+                
+            # ARRIBA / ABAJO (Eje Z - Altura en vista frontal)
+            elif event.type == 'UP_ARROW':
+                obj.location.z += 0.5
+            elif event.type == 'DOWN_ARROW':
+                obj.location.z -= 0.5
+
+            # SALIR
+            elif event.type == 'ESC':
+                return {'FINISHED'}
+
+        return {'RUNNING_MODAL'}
+
+    def invoke(self, context, event):
+        context.window_manager.modal_handler_add(self)
+        return {'RUNNING_MODAL'}
+
+bpy.utils.register_class(ModalMoveOperator)
+bpy.ops.object.modal_move_operator('INVOKE_DEFAULT')
+
+```
+
+#### Visualización del dibujo
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bbb8c903-ba42-4a99-ba06-261ad9c756ab" width="400" title="Snorlax">
+  <br>
+  <em>Realice primero un dibujo para animar</em>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/45528832-1a85-4ee2-8493-59bb1a6b98e1" width="400" title="Snorlax">
+  <br>
+  <em>Posteriormente colocar el código y ejecutarlo</em>
+</p>
 
 ---
 
@@ -206,6 +264,13 @@ A diferencia de las curvas de Bézier, donde mover un solo punto de control afec
 * **Continuidad:** Permiten unir múltiples curvas de forma perfecta, sin ángulos marcados en las uniones.
 
 * **Uso:** Modelado 3D profesional (NURBS) y animaciones complejas donde se requiere precisión quirúrgica.
+
+---
+
+#### Ejemplo de una animacion frame x frame
+
+<img width="361" height="297" alt="image" src="https://github.com/user-attachments/assets/d6f71f7d-73a9-4a07-8725-31ab1cb9d8d0" />
+
 
 ---
 
