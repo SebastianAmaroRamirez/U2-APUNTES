@@ -15,17 +15,14 @@
 * **2.1.4** [Sesgado (Shear)](#214-sesgado)
 
 ### [2.2 Representación Matricial](#22-representación-matricial-de-las-transformaciones-bidimensionales)
-* *Uso de coordenadas homogéneas y concatenación de matrices.*
 
 ### [2.3 Trazo de Líneas Curvas](#23-trazo-de-líneas-curvas)
 * **2.3.1** [Bézier](#231-bézier)
 * **2.3.2** [B-spline](#232-b-spline)
 
 ### [2.4 Fractales](#24-fractales)
-* *Geometría autosimilar y algoritmos recursivos.*
 
 ### [2.5 Uso y Creación de Fuentes de Texto](#25-uso-y-creación-de-fuentes-de-texto)
-* *Tipografía vectorial vs. mapas de bits.*
 
 ---
 
